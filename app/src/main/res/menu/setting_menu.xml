@@ -2,8 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/info_id"
+        android:id="@+id/mm_info"
         android:title="Info"
+        android:icon="@drawable/ic_settings_white_24dp"
+        app:showAsAction="never">
+
+    </item>
+
+    <item
+        android:id="@+id/mm_skip_interval"
+        android:title="Skip Interval"
+        android:icon="@drawable/ic_settings_white_24dp"
+        app:showAsAction="never">
+
+    </item>
+
+    <item
+        android:id="@+id/mm_end_session"
+        android:title="End Session"
+        android:icon="@drawable/ic_settings_white_24dp"
+        app:showAsAction="never">
+
+    </item>
+
+    <item
+        android:id="@+id/mm_settings"
+        android:title="Settings"
         android:icon="@drawable/ic_settings_white_24dp"
         app:showAsAction="never">
 
