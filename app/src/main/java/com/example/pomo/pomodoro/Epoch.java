@@ -6,13 +6,23 @@ package com.example.pomo.pomodoro;
 
 public class Epoch {
 
-    public Epoch() {
-        this.startedAt = System.currentTimeMillis();
+    public Epoch(EpochType epochType, Long slots) {
+        this.numSlots = slots;
+        this.remainingSlots = slots;
+        this.type = epochType;
+    }
+
+    public boolean tick() {
+        this.remainingSlots = this.remainingSlots - 1;
+
+        return (this.remainingSlots < 1) ? true : false;
     }
 
     private EpochType type;
 
-    private Long startedAt;
+    private Long numSlots;
+
+    private Long remainingSlots;
 
     public EpochType getType() {
         return type;
@@ -22,11 +32,5 @@ public class Epoch {
         this.type = type;
     }
 
-    public Long getStartedAt() {
-        return startedAt;
-    }
 
-    public void setStartedAt(Long startedAt) {
-        this.startedAt = startedAt;
-    }
 }

@@ -6,5 +6,6 @@ package com.example.pomo.pomodoro;
 
 public enum EpochType {
     WORK,
-    REST;
+    REST,
+    SNOOZE;
 }
