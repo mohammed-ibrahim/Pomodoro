@@ -4,7 +4,7 @@ package com.example.pomo.pomodoro;
  * Created by ibrahim on 02/08/17.
  */
 
-public enum SessionState {
+public enum ApplicationState {
     PENDING,
     WORKING,
     RESTING,

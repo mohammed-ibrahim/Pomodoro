@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button primaryButton = null;
 
-    private static SessionState applicationStatus = SessionState.PENDING;
+    private static ApplicationState applicationStatus = ApplicationState.PENDING;
 
     private int counter = 0;
 
@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
             primaryStatusView.setText(getFriendlyMessageForApplicationStatus(applicationStatus));
 
-            if (applicationStatus.equals(SessionState.PAUSED_WHILE_RESTING) ||
-                    applicationStatus.equals(SessionState.PAUSED_WHILE_WORKING) ||
-                    applicationStatus.equals(SessionState.PENDING) ||
-                    applicationStatus.equals(SessionState.STOPPED)) {
+            if (applicationStatus.equals(ApplicationState.PAUSED_WHILE_RESTING) ||
+                    applicationStatus.equals(ApplicationState.PAUSED_WHILE_WORKING) ||
+                    applicationStatus.equals(ApplicationState.PENDING) ||
+                    applicationStatus.equals(ApplicationState.STOPPED)) {
 
                 String imsg = String.format("State %s Not doing anything.", String.valueOf(applicationStatus));
                 Log.i(TAG, imsg);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case WORKING:
                     case WORK_SNOOZE:
-                        applicationStatus = SessionState.WORK_SNOOZE;
+                        applicationStatus = ApplicationState.WORK_SNOOZE;
                         counter = snoozingCount;
                         actualCount = snoozingCount;
                         primaryButton.setText("TAKE REST");
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case RESTING:
                     case REST_SNOOZE:
-                        applicationStatus = SessionState.REST_SNOOZE;
+                        applicationStatus = ApplicationState.REST_SNOOZE;
                         counter = snoozingCount;
                         actualCount = snoozingCount;
                         primaryButton.setText("START WORKING");
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         switch (applicationStatus) {
             case PENDING:
             case REST_SNOOZE:
-                applicationStatus = SessionState.WORKING;
+                applicationStatus = ApplicationState.WORKING;
                 counter = workingCount;
                 actualCount = workingCount;
                 primaryButton.setText("PAUSE");
@@ -163,26 +163,26 @@ public class MainActivity extends AppCompatActivity {
             case WORKING:
                 //Toast.makeText(getApplicationContext(),"Already working!!", Toast.LENGTH_LONG).show();
                 primaryButton.setText("RESUME WORKING");
-                applicationStatus = SessionState.PAUSED_WHILE_WORKING;
+                applicationStatus = ApplicationState.PAUSED_WHILE_WORKING;
                 break;
 
             case RESTING:
                 primaryButton.setText("RESUME RESTING");
-                applicationStatus = SessionState.PAUSED_WHILE_RESTING;
+                applicationStatus = ApplicationState.PAUSED_WHILE_RESTING;
                 break;
 
             case PAUSED_WHILE_RESTING:
-                applicationStatus = SessionState.RESTING;
+                applicationStatus = ApplicationState.RESTING;
                 primaryButton.setText("PAUSE");
                 break;
 
             case PAUSED_WHILE_WORKING:
-                applicationStatus = SessionState.WORKING;
+                applicationStatus = ApplicationState.WORKING;
                 primaryButton.setText("PAUSE");
                 break;
 
             case WORK_SNOOZE:
-                applicationStatus = SessionState.RESTING;
+                applicationStatus = ApplicationState.RESTING;
                 counter = restingCount;
                 actualCount = restingCount;
                 primaryButton.setText("PAUSE");
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         primaryStatusView.setText(getFriendlyMessageForApplicationStatus(applicationStatus));
     }
 
-    private String getFriendlyMessageForApplicationStatus(SessionState state) {
+    private String getFriendlyMessageForApplicationStatus(ApplicationState state) {
         switch (state) {
             case WORKING:
                 return "Working.. Stay Focused!";
