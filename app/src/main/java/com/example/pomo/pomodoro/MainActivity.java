@@ -1,6 +1,8 @@
 package com.example.pomo.pomodoro;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Timer timer = null;
 
-    private TimerTask timerTask = null;
-
     private ProgressBar primaryProgressBar = null;
 
     private TextView primaryStatusView = null;
@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private static final int workingCount = 10;
+    private static int workingCount = 10;
 
-    private static final int restingCount = 8;
+    private static int restingCount = 8;
 
-    private static final int snoozingCount = 5;
+    private static int snoozingCount = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         primaryStatusView.setText(String.valueOf(applicationStatus));
 
         primaryButton = (Button)findViewById(R.id.button);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        workingCount = sharedPreferences.getInt(Constants.VAR_WORKING_COUNT, Constants.DEFAULT_WORKING_COUNT);
+        restingCount = sharedPreferences.getInt(Constants.VAR_RESTING_COUNT, Constants.DEFAULT_RESTING_COUNT);
+        snoozingCount = sharedPreferences.getInt(Constants.VAR_SNOOZE_COUNT, Constants.DEFAULT_SNOOZE_COUNT);
 
         if (timer == null) {
             Log.i(TAG, "Initializing the timer.");
@@ -111,10 +116,6 @@ public class MainActivity extends AppCompatActivity {
             //When timer ends.
             if (counter < 1) {
                 switch (applicationStatus) {
-                    case PENDING:
-                    case STOPPED:
-                        break;
-
                     case WORKING:
                     case WORK_SNOOZE:
                         applicationStatus = ApplicationState.WORK_SNOOZE;
@@ -132,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     default:
+                    case PENDING:
+                    case STOPPED:
                         break;
                 }
             }
